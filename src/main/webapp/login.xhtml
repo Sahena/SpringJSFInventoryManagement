@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<rich:panel>
+		<f:facet name="header">
+			<h:outputText value="Login Information" />
+		</f:facet>
+		<h:form>
+			<rich:message ajaxRendered="true" />
+			<h:panelGrid columns="3">
+				<h:outputText value="User Name:" />
+				<h:inputText label="userName" id="userName" required="true"
+					value="#{userModel.userName}">
+					<f:validateLength minimum="3" />
+				</h:inputText>
+				<br />
+				<br />
+				<h:outputText value="Password:" />
+				<h:inputSecret label="password" id="password" required="true"
+					value="#{userModel.passWord}">
+					<f:validateLength minimum="3" maximum="50" />
+				</h:inputSecret>
+				<br />
+				<br />
+				<f:facet name="footer">
+					<a4j:commandButton action="#{userCon.validateAuthentication}"
+						value="Login" />
+				</f:facet>
+			</h:panelGrid>
+		</h:form>
+	</rich:panel>
+</ui:composition>

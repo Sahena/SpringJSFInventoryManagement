@@ -1,0 +1,92 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:outputStylesheet>
+	.cols{
+	vertical-align:top;
+	}
+	.buttonCtrl{
+	margin-right: 40px;
+	}
+	.acent{
+    text-align: center;
+    }
+	</h:outputStylesheet>
+	<h:form>
+		<h:head>
+			<title>User Details</title>
+		</h:head>
+		<p>
+			<b>User Detail</b>
+		</p>
+
+		<h:panelGrid columnClasses="acent">
+			<rich:dataTable value="#{userCon.displayUser}" var="user" id="table"
+				rows="5">
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="UserName" />
+					</f:facet>
+					<h:inputText value="#{user.userName}"
+						rendered="#{user.id == userCon.editId}"></h:inputText>
+					<h:outputText value="#{user.userName}"
+						rendered="#{user.id != userCon.editId}"></h:outputText>
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Password"></h:outputText>
+					</f:facet>
+					<h:inputText value="#{user.passWord}"
+						rendered="#{user.id == userCon.editId}"></h:inputText>
+					<h:outputText value="#{user.passWord}"
+						rendered="#{user.id != userCon.editId}"></h:outputText>
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="DOB"></h:outputText>
+					</f:facet>
+
+					<rich:calendar value="#{user.dob}"
+						rendered="#{user.id == userCon.editId}"></rich:calendar>
+					<h:outputText value="#{user.dob}"
+						rendered="#{user.id != userCon.editId}"></h:outputText>
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Edit" />
+					</f:facet>
+
+					<h:commandButton value="edit" rendered="#{user.id!=userCon.editId}"
+						action="#{userCon.setEditId(user.id)}">
+					</h:commandButton>
+
+					<h:commandButton value="save" rendered="#{user.id==userCon.editId}"
+						action="#{userCon.updateUser(user)}">
+					</h:commandButton>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Delete"></h:outputText>
+					</f:facet>
+					<h:commandButton value="Delete"
+						rendered="#{user.id!=userCon.editId}"
+						action="#{userCon.deleteUser(user.id)}"></h:commandButton>
+				</rich:column>
+
+			</rich:dataTable>
+			<rich:dataScroller for="table" maxPages="5" fastStep="3" />
+		</h:panelGrid>
+		<h:commandButton value="Log Out" action="#{userCon.logOut}">
+		</h:commandButton>
+	</h:form>
+
+</ui:composition>

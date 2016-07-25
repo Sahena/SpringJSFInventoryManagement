@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:outputStylesheet>
+	.cols{
+	vertical-align:top;
+	}
+	.buttonCtrl{
+	margin-right: 40px;
+	}
+	.acent{
+    text-align: center;
+    }
+	</h:outputStylesheet>
+	<h:form>
+		<h:head>
+			<title>Product Details</title>
+		</h:head>
+		<p>
+			<b>Product Detail</b>
+		</p>
+
+		<h:panelGrid columnClasses="acent">
+			<rich:dataTable value="#{prodCon.displayProduct}" var="product"
+				id="table" rows="5">
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Name" />
+					</f:facet>
+					<h:inputText value="#{product.pname}"
+						rendered="#{product.pid == prodCon.editId}"></h:inputText>
+					<h:outputText value="#{product.pname}"
+						rendered="#{product.pid != prodCon.editId}"></h:outputText>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Price"></h:outputText>
+					</f:facet>
+					<h:inputText value="#{product.price}"
+						rendered="#{product.pid == prodCon.editId}" />
+					<h:outputText value="#{product.price}"
+						rendered="#{product.pid != prodCon.editId}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Quantity"></h:outputText>
+					</f:facet>
+					<h:inputText value="#{product.quantity}"
+						rendered="#{product.pid == prodCon.editId}"></h:inputText>
+					<h:outputText value="#{product.quantity}"
+						rendered="#{product.pid != prodCon.editId}"></h:outputText>
+				</rich:column>
+				<rich:column>
+
+					<f:facet name="header">
+						<h:outputText value="Category"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{product.catModel.cname}"
+						rendered="#{product.pid != prodCon.editId}"></h:outputText>
+
+					<h:selectOneMenu value="#{product.catModel.cid}"
+						rendered="#{product.pid == prodCon.editId}">
+						<f:selectItems value="#{catCon.displayCategory}" var="category"
+							itemLabel="#{category.cname}" itemValue="#{category.cid}" />
+					</h:selectOneMenu>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Edit" />
+					</f:facet>
+
+					<h:commandButton value="edit"
+						rendered="#{product.pid != prodCon.editId}"
+						action="#{prodCon.setEditId(product.pid)}">
+					</h:commandButton>
+
+					<h:commandButton value="save"
+						rendered="#{product.pid == prodCon.editId}"
+						action="#{prodCon.updateProduct(product)}">
+					</h:commandButton>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header" rendered="#{product.pid != prodCon.editId}">
+						<h:outputText value="Delete"></h:outputText>
+					</f:facet>
+					<h:commandButton value="Delete"
+						rendered="#{product.pid != prodCon.editId}"
+						action="#{prodCon.deleteProduct(product.pid)}"></h:commandButton>
+				</rich:column>
+
+			</rich:dataTable>
+			<rich:dataScroller for="table" maxPages="5" fastStep="3" />
+		</h:panelGrid>
+		<h:commandButton value="Log Out" action="#{userCon.logOut}">
+		</h:commandButton>
+	</h:form>
+
+</ui:composition>

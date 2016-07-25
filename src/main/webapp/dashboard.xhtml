@@ -1,0 +1,63 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:outputStylesheet>
+	.cols{
+	vertical-align:top;
+	}
+	.buttonCtrl{
+	margin-right: 40px;
+	}
+	</h:outputStylesheet>
+	<h:form>
+		<h:head>
+			<title>Dashboard</title>
+		</h:head>
+
+		<p>
+			<b>Welcome #{userModel.userName}</b>
+		</p>
+
+		<h:panelGrid columns="2" columnClasses="cols,cols" width="400">
+			<rich:panelMenu style="width:200px" itemMode="ajax" groupMode="ajax"
+				topGroupExpandedLeftIcon="triangleUp"
+				topGroupCollapsedLeftIcon="triangleDown"
+				topGroupExpandedRightIcon="chevronUp"
+				topGroupCollapsedRightIcon="chevronDown" itemLeftIcon="disc">
+				<rich:panelMenuGroup label="Category Management">
+					<rich:panelMenuItem>
+						<h:commandLink action="addCategory" value="Add Category"></h:commandLink>
+					</rich:panelMenuItem>
+					<rich:panelMenuItem>
+						<h:commandLink action="displayCategory" value="Display Category"></h:commandLink>
+					</rich:panelMenuItem>
+				</rich:panelMenuGroup>
+				<rich:panelMenuGroup label="Product Management">
+					<rich:panelMenuItem>
+						<h:commandLink action="addProduct" value="Add Product"></h:commandLink>
+					</rich:panelMenuItem>
+					<rich:panelMenuItem>
+						<h:commandLink action="displayProduct" value="Display Product"></h:commandLink>
+					</rich:panelMenuItem>
+				</rich:panelMenuGroup>
+				<rich:panelMenuGroup label="User Management">
+					<rich:panelMenuItem>
+						<h:commandLink action="addUser" value="Add User"></h:commandLink>
+					</rich:panelMenuItem>
+					<rich:panelMenuItem>
+						<h:commandLink action="displayUser" value="Display User"></h:commandLink>
+					</rich:panelMenuItem>
+				</rich:panelMenuGroup>
+			</rich:panelMenu>
+		</h:panelGrid>
+		<h:commandButton value="Log Out" action="#{userCon.logOut}">
+		</h:commandButton>
+	</h:form>
+
+</ui:composition>

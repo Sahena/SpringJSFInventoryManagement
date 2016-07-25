@@ -1,0 +1,73 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:outputStylesheet>
+	.cols{
+	vertical-align:top;
+	}
+	.buttonCtrl{
+	margin-right: 40px;
+	}
+	.acent{
+    text-align: center;
+    }
+	</h:outputStylesheet>
+	<h:form>
+		<h:head>
+			<title>Category Details</title>
+		</h:head>
+		<p>
+			<b>Category Detail</b>
+		</p>
+
+		<h:panelGrid columnClasses="acent">
+			<rich:dataTable value="#{catCon.displayCategory}" var="category"
+				id="table" rows="5">
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Name" />
+					</f:facet>
+					<h:inputText value="#{category.cname}"
+						rendered="#{category.cid == catCon.editId}"></h:inputText>
+					<h:outputText value="#{category.cname}"
+						rendered="#{category.cid != catCon.editId}"></h:outputText>
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Edit" />
+					</f:facet>
+
+					<h:commandButton value="edit"
+						rendered="#{category.cid != catCon.editId}"
+						action="#{catCon.setEditId(category.cid)}">
+					</h:commandButton>
+
+					<h:commandButton value="save"
+						rendered="#{category.cid == catCon.editId}"
+						action="#{catCon.updateCategory(category)}">
+					</h:commandButton>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Delete"></h:outputText>
+					</f:facet>
+					<h:commandButton value="Delete"
+						rendered="#{category.cid != catCon.editId}"
+						action="#{catCon.deleteCategory(category.cid)}"></h:commandButton>
+				</rich:column>
+
+			</rich:dataTable>
+			<rich:dataScroller for="table" maxPages="5" fastStep="3" />
+		</h:panelGrid>
+		<h:commandButton value="Log Out" action="#{userCon.logOut}">
+		</h:commandButton>
+	</h:form>
+
+</ui:composition>
